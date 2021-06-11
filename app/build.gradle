@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -41,6 +42,7 @@ dependencies {
     final COROUTINE_VERSION = "1.4.3"
     final ANDROIDX_APPCOMPAT = '1.2.1'
     final KOIN_VERSION = "2.1.5"
+    final ORHANOBUT_LOGGER = '2.2.0'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.5.0'
@@ -61,7 +63,9 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINE_VERSION"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINE_VERSION"
 
-    testImplementation 'junit:junit:4.+'
+    implementation "com.orhanobut:logger:$ORHANOBUT_LOGGER"
+
+    testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }

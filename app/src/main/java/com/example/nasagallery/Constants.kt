@@ -4,4 +4,4 @@ const val TARGET_URL = "https://raw.githubusercontent.com/cmmobile/NasaDataSet/m
 
 const val DATABASE_NAME = "the-db"
 
-const val DONE_CRATE_IMAGE_RECORD = "DONE_CRATE_IMAGE_RECORD"
+const val PAGING_SIZE = 20

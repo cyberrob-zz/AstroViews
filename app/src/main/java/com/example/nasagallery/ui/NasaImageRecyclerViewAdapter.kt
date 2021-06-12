@@ -1,51 +1,52 @@
 package com.example.nasagallery.ui
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import com.example.nasagallery.R
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
+import com.example.nasagallery.database.entities.NasaImageRecord
 import com.example.nasagallery.databinding.ItemNasaImageBinding
+import com.example.nasagallery.util.ImageLoader
 
-import com.example.nasagallery.ui.placeholder.PlaceholderContent.PlaceholderItem
-
-/**
- * [RecyclerView.Adapter] that can display a [PlaceholderItem].
- * TODO: Replace the implementation with code for your data type.
- */
 class NasaImageRecyclerViewAdapter(
-    private val values: List<PlaceholderItem>
-) : RecyclerView.Adapter<NasaImageRecyclerViewAdapter.ViewHolder>() {
+    private val imageLoader: ImageLoader
+) : PagingDataAdapter<NasaImageRecord, NasaImageRecyclerViewAdapter.ViewHolder>(NasaImageRecordDiff()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-
-        return ViewHolder(
-            ItemNasaImageBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(
+        ItemNasaImageBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
         )
-
-    }
+    )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = values[position]
-        holder.idView.text = item.id
-        holder.contentView.text = item.content
-    }
-
-    override fun getItemCount(): Int = values.size
-
-    inner class ViewHolder(binding: ItemNasaImageBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        val idView: TextView = binding.itemNumber
-        val contentView: TextView = binding.content
-
-        override fun toString(): String {
-            return super.toString() + " '" + contentView.text + "'"
+        getItem(position)?.let { imageRecord ->
+            holder.bind(image = imageRecord, imageLoader = imageLoader)
         }
     }
 
+    inner class ViewHolder(private val binding: ItemNasaImageBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(image: NasaImageRecord, imageLoader: ImageLoader) {
+            binding.itemNumber.text = image.title
+            imageLoader.loadIntoTarget(image.url, binding.contentImage)
+        }
+    }
+
+    class NasaImageRecordDiff : DiffUtil.ItemCallback<NasaImageRecord>() {
+        override fun areItemsTheSame(oldItem: NasaImageRecord, newItem: NasaImageRecord): Boolean {
+            return oldItem._id == newItem._id
+        }
+
+        override fun areContentsTheSame(
+            oldItem: NasaImageRecord,
+            newItem: NasaImageRecord
+        ): Boolean {
+            return oldItem == newItem
+        }
+
+    }
 }

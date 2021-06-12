@@ -19,12 +19,13 @@
         android:name="com.example.nasagallery.ui.GridViewFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layoutManager="LinearLayoutManager"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/button_to_second"
         tools:context=".ui.GridViewFragment"
+        tools:itemCount="20"
         tools:listitem="@layout/item_nasa_image" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -15,7 +15,7 @@ interface TheDao {
     suspend fun getAllImages(): List<NasaImageRecord>
 
     // TODO: 2021/6/12 Find the correct syntax to query paged data
-    @Query("SELECT * FROM nasa_image WHERE _id IN (SELECT _id FROM nasa_image ORDER BY _id LIMIT :size) ")
+    @Query("SELECT * FROM nasa_image WHERE _id IN (SELECT _id FROM nasa_image ORDER BY _id DESC LIMIT :size) ")
     suspend fun getImages(size: Int): List<NasaImageRecord>
 
     @Query("SELECT * from nasa_image WHERE _id = :id")

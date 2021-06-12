@@ -24,9 +24,9 @@ class FirstViewModel(
 ) : BaseViewModel() {
 
     sealed class State(var message: String) {
-        object Retrieving : State(message = "Working on retrieve data..")
-        object Parsing : State(message = "Working on parse data..")
-        object Saving : State(message = "Working on save data..")
+        object Retrieving : State(message = "..Working on retrieve data..")
+        object Parsing : State(message = "..Working on parse data..")
+        object Saving : State(message = "..Working on save data..")
         object Succeed : State(message = "Succeed to retrieve data..")
         object Failed : State(message = "Failed to retrieve data")
         object NoData : State(message = "No json string available.")
@@ -40,6 +40,13 @@ class FirstViewModel(
 
     fun retrieveData() {
         viewModelScope.launch(Dispatchers.IO) {
+            if (theDao.getAllImages().isNotEmpty()) {
+                Logger.d("Got ${theDao.getAllImages().size} records...")
+                _state.postValue(State.Succeed.also {
+                    it.message = "Got ${theDao.getAllImages().size} records..."
+                })
+                return@launch
+            }
 
             _state.postValue(State.Retrieving)
             val jsonString = retrieveJsonAsync().await()

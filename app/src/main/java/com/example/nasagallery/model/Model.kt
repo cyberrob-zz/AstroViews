@@ -1,10 +1,11 @@
 package com.example.nasagallery.model
 
-
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import com.example.nasagallery.database.entities.NasaImageRecord
 import com.google.gson.annotations.SerializedName
-
+import kotlinx.android.parcel.Parcelize
+import java.text.SimpleDateFormat
+import java.util.*
 
 @Parcelize
 data class NasaImage(
@@ -25,3 +26,18 @@ data class NasaImage(
     @SerializedName("url")
     val url: String
 ) : Parcelable
+
+fun NasaImage.asNasaImageRecord(): NasaImageRecord {
+    return NasaImageRecord(
+        _id = this.hashCode(),
+        title = this.title,
+        url = this.url,
+        hdurl = this.hdurl,
+        mediaType = this.mediaType,
+        description = this.description,
+        date =
+        SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(this.date) ?: Date(),
+        copyright = this.copyright,
+        apodSite = this.apodSite
+    )
+}

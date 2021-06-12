@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-parcelize'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -33,6 +34,12 @@ android {
     buildFeatures {
         viewBinding true
     }
+    // Export Room database schema with versions for Kotlin
+    kapt {
+        arguments {
+            arg("room.schemaLocation", "$projectDir/schemas".toString())
+        }
+    }
 }
 
 dependencies {
@@ -43,6 +50,7 @@ dependencies {
     final ANDROIDX_APPCOMPAT = '1.2.1'
     final KOIN_VERSION = "2.1.5"
     final ORHANOBUT_LOGGER = '2.2.0'
+    final ROOM_VERSION = "2.3.0"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.5.0'
@@ -56,6 +64,9 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$ANDROIDX_LIFECYCLE"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$ANDROIDX_LIFECYCLE"
     implementation "androidx.recyclerview:recyclerview:$ANDROIDX_APPCOMPAT"
+    implementation "androidx.paging:paging-runtime-ktx:3.0.0-beta02"
+
+
     implementation "org.koin:koin-androidx-scope:$KOIN_VERSION"
     implementation "org.koin:koin-androidx-viewmodel:$KOIN_VERSION"
     implementation "org.koin:koin-androidx-ext:$KOIN_VERSION"
@@ -64,6 +75,14 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINE_VERSION"
 
     implementation "com.orhanobut:logger:$ORHANOBUT_LOGGER"
+
+    implementation "androidx.room:room-runtime:$ROOM_VERSION"
+
+    // For Kotlin use kapt instead of annotationProcessor
+    kapt "androidx.room:room-compiler:$ROOM_VERSION"
+
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation "androidx.room:room-ktx:$ROOM_VERSION"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

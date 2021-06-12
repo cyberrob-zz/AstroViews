@@ -1,6 +1,7 @@
 package com.example.nasagallery
 
 import android.app.Application
+import com.example.nasagallery.di.koinModule
 import com.example.nasagallery.di.viewModelModule
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
@@ -19,6 +20,7 @@ class MainApplication : Application() {
             androidContext(this@MainApplication)
             modules(
                 listOf(
+                    koinModule,
                     viewModelModule
                 )
             )

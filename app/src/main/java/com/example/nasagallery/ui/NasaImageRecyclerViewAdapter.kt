@@ -9,9 +9,13 @@ import com.example.nasagallery.database.entities.NasaImageRecord
 import com.example.nasagallery.databinding.ItemNasaImageBinding
 import com.example.nasagallery.util.ImageLoader
 
+typealias NasaImageClickListener = (NasaImageRecord) -> Unit
+
 class NasaImageRecyclerViewAdapter(
     private val imageLoader: ImageLoader
 ) : PagingDataAdapter<NasaImageRecord, NasaImageRecyclerViewAdapter.ViewHolder>(NasaImageRecordDiff()) {
+
+    var itemClickListener: NasaImageClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(
         ItemNasaImageBinding.inflate(
@@ -33,6 +37,9 @@ class NasaImageRecyclerViewAdapter(
         fun bind(image: NasaImageRecord, imageLoader: ImageLoader) {
             binding.itemNumber.text = image.title
             imageLoader.loadIntoTarget(image.url, binding.contentImage)
+            binding.itemContainer.setOnClickListener {
+                itemClickListener?.invoke(image)
+            }
         }
     }
 

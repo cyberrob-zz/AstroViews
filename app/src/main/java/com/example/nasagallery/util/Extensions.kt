@@ -11,6 +11,9 @@ import java.io.*
 import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
 
 fun String.toBitmapAsync(): Deferred<Bitmap?> {
     return GlobalScope.async(context = Dispatchers.IO) {
@@ -77,3 +80,11 @@ fun Bitmap.toFileAsync(file: File): Deferred<Boolean> {
         }
     }
 }
+
+fun String.toDate(dateFormat: SimpleDateFormat) = try {
+    dateFormat.parse(this)
+} catch (e: ParseException) {
+    null
+}
+
+fun Date.toFormattedString(dateFormat: SimpleDateFormat): String = dateFormat.format(this)

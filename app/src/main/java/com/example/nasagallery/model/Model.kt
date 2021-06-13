@@ -1,7 +1,9 @@
 package com.example.nasagallery.model
 
 import android.os.Parcelable
+import com.example.nasagallery.IMAGE_DATE_FORMAT
 import com.example.nasagallery.database.entities.NasaImageRecord
+import com.example.nasagallery.util.toFormattedString
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import java.text.SimpleDateFormat
@@ -39,5 +41,23 @@ fun NasaImage.asNasaImageRecord(): NasaImageRecord {
         SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(this.date) ?: Date(),
         copyright = this.copyright,
         apodSite = this.apodSite
+    )
+}
+
+fun NasaImageRecord.asNasaImage(): NasaImage {
+    return NasaImage(
+        apodSite = this.apodSite,
+        copyright = this.copyright,
+        date = this.date.toFormattedString(
+            dateFormat = SimpleDateFormat(
+                IMAGE_DATE_FORMAT,
+                Locale.getDefault()
+            )
+        ),
+        description = this.description,
+        hdurl = this.hdurl,
+        mediaType = this.mediaType,
+        title = this.title,
+        url = this.url
     )
 }

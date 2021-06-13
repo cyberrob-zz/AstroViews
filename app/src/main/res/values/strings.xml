@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NasaGallery</string>
+    <string name="app_name">NasaImg</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">Welcome</string>
@@ -9,5 +9,4 @@
     <string name="previous">Previous</string>
 
     <string name="hello_first_fragment">Astronomy Picture of the Day</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>

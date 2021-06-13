@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.nasagallery.KEY_NASA_IMAGE
 import com.example.nasagallery.R
 import com.example.nasagallery.databinding.FragmentGridViewListBinding
+import com.example.nasagallery.model.asNasaImage
 import com.example.nasagallery.util.ImageLoader
 import com.example.nasagallery.viewmodel.GridViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -41,6 +44,14 @@ class GridViewFragment : Fragment() {
 
         binding.buttonToSecond.setOnClickListener {
             findNavController().navigate(R.id.action_gridViewFragment_to_DetailFragment)
+        }
+
+        pagingAdapter.itemClickListener = { clickedNasaImage ->
+            findNavController().navigate(
+                R.id.action_gridViewFragment_to_DetailFragment, bundleOf(
+                    KEY_NASA_IMAGE to clickedNasaImage.asNasaImage()
+                )
+            )
         }
 
         with(binding.nasaImageList) {

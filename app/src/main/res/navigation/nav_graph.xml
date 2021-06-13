@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.example.nasagallery.ui.FirstFragment"
+        android:name="com.example.astroviews.ui.FirstFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first">
 
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/gridViewFragment"
-        android:name="com.example.nasagallery.ui.GridViewFragment"
+        android:name="com.example.astroviews.ui.GridViewFragment"
         android:label="@string/grid_view_fragment_label"
         tools:layout="@layout/fragment_grid_view_list">
         <action
@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/DetailFragment"
-        android:name="com.example.nasagallery.ui.DetailFragment"
+        android:name="com.example.astroviews.ui.DetailFragment"
         android:label="@string/detail_fragment_label"
         tools:layout="@layout/fragment_detail">
 

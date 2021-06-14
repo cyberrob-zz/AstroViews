@@ -58,7 +58,10 @@ class ImageLoader(context: Context) {
                     }
                     // Get from remote
                     else {
-                        urlWithIdentifier.split(CACHE_KEY_SEPARATOR)[0].toBitmapAsync().await()
+                        urlWithIdentifier.split(CACHE_KEY_SEPARATOR)[0].toBitmapAsync(
+                            target.measuredWidth,
+                            target.measuredHeight
+                        ).await()
                     }
 
                 if (bitmap != null) {

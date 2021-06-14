@@ -17,7 +17,7 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
-fun String.toBitmapAsync(): Deferred<Bitmap?> {
+fun String.toBitmapAsync(requiredWidth: Int, requiredHeight: Int): Deferred<Bitmap?> {
     return GlobalScope.async(context = Dispatchers.IO) {
         try {
             val imageUrl = URL(this@toBitmapAsync)
@@ -32,9 +32,18 @@ fun String.toBitmapAsync(): Deferred<Bitmap?> {
                 Logger.d("$bytesCopied byte of image copied to output stream. ")
 
                 val options = BitmapFactory.Options().apply { inJustDecodeBounds = true }
-                BitmapFactory.decodeStream(inputStream, null, options)
+                BitmapFactory.decodeStream(
+                    ByteArrayInputStream(outputStream.toByteArray()),
+                    null,
+                    options
+                )
 
-                val inSampleSize = 8//calculateInSampleSize(options, 100)
+                val inSampleSize =
+                    calculateInSampleSize(
+                        options,
+                        requiredWidth.toPx().toInt(),
+                        requiredHeight.toPx().toInt()
+                    )
                 Logger.d("sample size: $inSampleSize")
 
                 // Decode bitmap with inSampleSize

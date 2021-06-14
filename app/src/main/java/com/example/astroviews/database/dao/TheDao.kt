@@ -14,7 +14,7 @@ interface TheDao {
     @Query("SELECT * from astro_image_record")
     suspend fun getAllImages(): List<AstroImageRecord>
 
-    @Query("SELECT * FROM astro_image_record WHERE _id NOT IN ( SELECT _id FROM astro_image_record ORDER BY title ASC LIMIT :offset) ORDER BY title ASC LIMIT :size")
+    @Query("SELECT * FROM astro_image_record WHERE _id NOT IN ( SELECT _id FROM astro_image_record ORDER BY date ASC LIMIT :offset) ORDER BY date ASC LIMIT :size")
     suspend fun getImages(offset: Int, size: Int): List<AstroImageRecord>
 
     @Query("SELECT * from astro_image_record WHERE _id = :id")

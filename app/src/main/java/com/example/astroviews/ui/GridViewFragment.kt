@@ -31,20 +31,11 @@ class GridViewFragment : Fragment() {
 
     private val gridViewModel: GridViewModel by viewModel()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentGridViewListBinding.inflate(inflater, container, false)
-
-        binding.buttonToSecond.setOnClickListener {
-            findNavController().navigate(R.id.action_gridViewFragment_to_DetailFragment)
-        }
 
         pagingAdapter.itemClickListener = { clickedNasaImage ->
             findNavController().navigate(

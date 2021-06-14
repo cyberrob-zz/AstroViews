@@ -1,7 +1,7 @@
 package com.example.astroviews.model
 
 import android.os.Parcelable
-import com.example.astroviews.IMAGE_DATE_FORMAT
+import com.example.astroviews.IMAGE_DATE_FORMAT_ON_DETAIL_PAGE
 import com.example.astroviews.database.entities.AstroImageRecord
 import com.example.astroviews.util.toFormattedString
 import com.google.gson.annotations.Expose
@@ -53,7 +53,7 @@ fun AstroImageRecord.asNasaImage(): AstroImage {
         copyright = this.copyright,
         date = this.date.toFormattedString(
             dateFormat = SimpleDateFormat(
-                IMAGE_DATE_FORMAT,
+                IMAGE_DATE_FORMAT_ON_DETAIL_PAGE,
                 Locale.getDefault()
             )
         ),
